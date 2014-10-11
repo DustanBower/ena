@@ -1,0 +1,41 @@
+""" config.py: Configuration file for ena. """
+
+# username to sign into google docs (my gmail address, in my case)
+#USERNAME = ""
+
+# password for google docs (my gmail password, in my case)
+#PASSWORD = ""
+
+# filename of the spreadsheet to process for E&A
+#FILENAME = ""
+
+# The date field from the spreadsheet itself.  Must match the first row in
+# the database, i.e., A1 Timestamp, A2 03/31/13.
+DATE_FIELD = 'Timestamp'
+
+# The format of the date stored in the database, using python date formatting.
+# In my case that format is "9/19/14 12:43"
+DATE_FORMAT = "%m/%d/%y %H:%M"
+
+# Should match the first row in the database for the column of membership #s
+MEMBERSHIP_NUMBER = "What is your Membership Number?"
+
+# Should match the first row in the database for the column of player names
+PLAYER_NAME = 'What is your name?'
+
+# Field that matches Clan
+CLAN_FIELD = "Clan / Character Type"
+
+# Field that matches Covenant
+COVENANT_FIELD = "Covenant"
+
+# Field that determines whether this PC is counted for Ascendency & Eminence
+COUNT_FIELD = (
+    "This is the PC I want counted for purposes of Ascendancy/Eminence")
+
+# Field for status total
+STATUS_FIELD = "What is your City Status (Locals Only)"
+
+UNKNOWN_STATUS = "I don't know and will speak with the Harpies/ST to find out"
+# Should we prompt or each new player?
+NEW_PLAYER_PROMPT = False

@@ -1,0 +1,48 @@
+
+copy config.py.sample to config.py
+
+update the USERNAME, PASSWORD, and FILENAME fields.  ena won't function without them.
+
+
+Check all the other fields in the file to make sure they correspond to the headers of the spreadsheet in the database.  If any fields in the database are changed, the corresponding text must be changed in config.py as well.
+
+
+usage:
+
+./ena.py <date, in MM/YY or MM/YYYY format>
+
+Output will consist of sanity-checking, then the calculated data.
+
+Sanity-checking:
+Users wage a never-ending war on data-integrity.
+
+To partially combat this, this script shows a list of collisions and unique users.
+
+Collisions list the entries that the script has chosen to ignore.
+
+e.g.,
+Jane Doe (US00000001) collides with Jane Doe (US00000001), excluding
+John Doe (US00000002) collides with John Doe (US00000002), excluding
+
+When a user is first seen, their name and membership number are remembered.  Any furthur entries in that date range that match either are excluded and printed.  This list should be evaluated.  If it looks like the user that is excluded is a duplicate, that particular message should just be disregarded.  If two different users are shown as colliding, one of them has mistakenly used the wrong membership number and collided with the other.  In this case the spreadsheet will need to be manually corrected and the script run again.
+
+After collisions are listed, a list of unique, counted users, is displayed.  These entries are supposed to be unique.  This list will need to be reviewed also to make sure that typos aren't counted as unique users, and that every person listed is an actual player.  Entries that appear blank indicate a problem that will need to be reviewed in the sheet manually.
+
+Counted status for the following UNIQUE players:
+    Jane Doe
+    Jaane Doe
+    John Doe
+
+Jane Doe and Jaane Doe should not both appear on this list unless they are two separate individuals.  If a person appears twice, the spreadsheet will need to be corrected manually (by making either the person's names or membership numbers match), and the script will need to be rerun.
+
+If all the listed collisions are the same user, e.g.,
+Jane Doe (US00000001) collides with Jane Doe (US00000001), excluding
+John Doe (US00000002) collides with John Doe (US00000002), excluding
+
+and all the listed unique users are in fact unique, e.g.,
+Counted status for the following UNIQUE players:
+    Jane Doe
+    John Doe
+
+
+then the status and member output of the script should be correct.
