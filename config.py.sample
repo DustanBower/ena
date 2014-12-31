@@ -1,13 +1,14 @@
-""" config.py: Configuration file for ena. """
+""" config.py: Configuration file for ena """
 
 # username to sign into google docs (my gmail address, in my case)
-#USERNAME = ""
+USERNAME = ""
 
 # password for google docs (my gmail password, in my case)
-#PASSWORD = ""
+PASSWORD = ""
 
 # filename of the spreadsheet to process for E&A
-#FILENAME = ""
+#FILENAME = "e-a nwod test"
+FILENAME = ""
 
 # The date field from the spreadsheet itself.  Must match the first row in
 # the database, i.e., A1 Timestamp, A2 03/31/13.
@@ -36,6 +37,10 @@ COUNT_FIELD = (
 # Field for status total
 STATUS_FIELD = "What is your City Status (Locals Only)"
 
-UNKNOWN_STATUS = "I don't know and will speak with the Harpies/ST to find out"
+UNKNOWN_STATUSES = (
+    "I don't know and will speak with the Harpies/ST to find out",
+    "0 - None or Non Local",
+)
+
 # Should we prompt or each new player?
 NEW_PLAYER_PROMPT = False
