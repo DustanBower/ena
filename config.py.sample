@@ -7,7 +7,6 @@ USERNAME = ""
 PASSWORD = ""
 
 # filename of the spreadsheet to process for E&A
-#FILENAME = "e-a nwod test"
 FILENAME = ""
 
 # The date field from the spreadsheet itself.  Must match the first row in
