@@ -41,6 +41,3 @@ UNKNOWN_STATUSES = (
     "I don't know and will speak with the Harpies/ST to find out",
     "0 - None or Non Local",
 )
-
-# Should we prompt or each new player?
-NEW_PLAYER_PROMPT = False
