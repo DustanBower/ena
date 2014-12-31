@@ -173,8 +173,6 @@ def calculate_status(data):
     seen['players'] = []
     seen['data'] = []
 
-    excluded = []
-
     for entry in data:
         mship_number = entry[DATA_FIELDS['mship_number']].upper()
         player_name = entry[DATA_FIELDS['player_name']].lower()
@@ -200,9 +198,6 @@ def calculate_status(data):
                         player_name.title(), mship_number, seen_name.title(),
                         seen_mship))
 
-                    excluded.append({'mship_number': mship_number,
-                                     'player_name': player_name,
-                                     'collides with': (seen_name, seen_mship)})
                     break
 
             if not STFU and not (seen_mship or seen_name):
