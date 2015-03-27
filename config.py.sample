@@ -14,8 +14,10 @@ FILENAME = ""
 DATE_FIELD = 'Timestamp'
 
 # The format of the date stored in the database, using python date formatting.
-# In my case that format is "9/19/14 12:43"
-DATE_FORMAT = "%m/%d/%y %H:%M"
+# In my case that format is "9/19/14 12:43" or "09/19/2014 12:43:21"
+DATE_FORMATS = ("%m/%d/%Y %H:%M:%S",
+                "%m/%d/%y %H:%M",
+                "%m/%d/%Y")
 
 # Should match the first row in the database for the column of membership #s
 MEMBERSHIP_NUMBER = "What is your Membership Number?"
