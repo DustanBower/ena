@@ -125,15 +125,14 @@ class TestFilter(unittest.TestCase):
         self.assertEqual(ena.filter_list(data4, {'count?': 'no'}), [set1])
 
 
-
 class ParseMonthTest(unittest.TestCase):
-    def test_parse_date(self):
+    def test_parse_date_arg(self):
         values = (("1/12", {'month': 1, 'year': 12}),
                   ("2/12", {'month': 2, 'year': 12}),
                   ("2/14", {'month': 2, 'year': 14}),
                  )
         for date_string, result in values:
-            self.assertEqual(ena.parse_date(date_string), result)
+            self.assertEqual(ena.parse_date_arg(date_string), result)
 
 
 class TestStatusCalculation(unittest.TestCase):
@@ -165,6 +164,18 @@ class TestStatusCalculation(unittest.TestCase):
         members, statuses = ena.calculate_status(dict_data)
         self.assertEqual(members, member_results)
         self.assertEqual(statuses, status_results)
+
+
+class TestParseDate(unittest.TestCase):
+    def test_parse_date(self):
+        data = (
+            ('09/19/14 12:43', {'month': 9, 'year': 2014}),
+            ('09/19/2014 12:43:21', {'month': 9, 'year': 2014}),
+            ('09/19/2014', {'month': 9, 'year': 2014})
+        )
+
+        for date, result in data:
+            self.assertEqual(ena.parse_date(date), result)
 
 
 if __name__ == '__main__':

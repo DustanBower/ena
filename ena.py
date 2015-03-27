@@ -7,6 +7,7 @@ Ascendancy and Eminence.
 """
 
 from collections import defaultdict
+from contextlib import contextmanager
 from datetime import datetime
 import operator
 
@@ -27,6 +28,14 @@ DATA_FIELDS = {
     "mship_number": config.MEMBERSHIP_NUMBER,
     "status": config.STATUS_FIELD,
 }
+
+
+@contextmanager
+def ignored(*exceptions):
+    try:
+        yield
+    except exceptions:
+        pass
 
 
 def login(username, password):
@@ -101,8 +110,7 @@ def filter_list(data, arguments=None):
 
         if special_fields[date_field]:
             data = [_ for _ in data
-                    if getattr(datetime.strptime(_[config.DATE_FIELD],
-                                   config.DATE_FORMAT),
+                    if parse_date(_[config.DATE_FIELD]).get(
                                date_field) == special_fields[date_field]]
 
     for filter_key, filter_value in filter_by.iteritems():
@@ -146,11 +154,26 @@ def data_to_dict(spreadsheet_data):
     return data
 
 
-def parse_date(date_string):
+def parse_date_arg(date_string):
     """ Parse a date in the form 1/12 into a dict specifying month/year. """
 
     month, year = date_string.split('/')
     return {'month': int(month), 'year': int(year)}
+
+
+def parse_date(date_string):
+    """Parse a date from the spreadsheet, accepting multiple formats."""
+    for date_format in config.DATE_FORMATS:
+        with ignored(ValueError):
+            parsed_date = datetime.strptime(date_string, date_format)
+            results = {'month': parsed_date.month, 'year': parsed_date.year}
+            return results
+
+    if not STFU:
+        print('Error: date format does not match any formats in config:')
+        print('    {}'.format(date_string))
+
+    return {'month': None, 'year': None}
 
 
 def calculate_status(data):
@@ -283,7 +306,7 @@ if __name__ == '__main__':
     sheet = spreadsheet(gdrive, config.FILENAME)
     sheet_data = data_to_dict(sheet.sheet1.get_all_values())
 
-    args = parse_date(args.date)
+    args = parse_date_arg(args.date)
     # We only care about PCs who are supposed to be counted
     args['count?'] = 'yes'
     ena_data = filter_list(sheet_data, args)
